@@ -219,8 +219,74 @@ const features = [
   },
 ]
 
+// Circular progress indicator for floating elements
+function CircularProgress({
+  value,
+  max,
+  colorClass,
+  emptyColorClass,
+}: {
+  value: number
+  max: number
+  colorClass: string
+  emptyColorClass: string
+}) {
+  const percentage = (value / max) * 100
+  const size = 20
+  const strokeWidth = 6
+  const radius = (36 - strokeWidth) / 2
+  const circumference = 2 * Math.PI * radius
+
+  return (
+    <div className="relative" style={{ height: size, width: size }}>
+      <svg className="h-full w-full -rotate-90" viewBox="0 0 36 36">
+        {/* Background circle */}
+        <circle
+          className={emptyColorClass}
+          stroke="currentColor"
+          strokeWidth={strokeWidth}
+          fill="none"
+          cx="18"
+          cy="18"
+          r={radius}
+        />
+        {/* Progress circle */}
+        <circle
+          className={colorClass}
+          stroke="currentColor"
+          strokeWidth={strokeWidth}
+          fill="none"
+          cx="18"
+          cy="18"
+          r={radius}
+          strokeDasharray={circumference}
+          strokeDashoffset={circumference - (percentage / 100) * circumference}
+          strokeLinecap="round"
+        />
+      </svg>
+    </div>
+  )
+}
+
 function FloatingElement({ element }: { element: (typeof floatingElements)[0] }) {
   const colors = colorConfig[element.color as keyof typeof colorConfig]
+
+  // Map color config to text classes for the circular progress
+  const progressColorClass = {
+    pink: 'text-pink-500',
+    green: 'text-emerald-500',
+    blue: 'text-blue-500',
+    sky: 'text-sky-500',
+    purple: 'text-violet-500',
+  }[element.color as keyof typeof colorConfig]
+
+  const progressEmptyColorClass = {
+    pink: 'text-pink-200',
+    green: 'text-emerald-200',
+    blue: 'text-blue-200',
+    sky: 'text-sky-200',
+    purple: 'text-violet-200',
+  }[element.color as keyof typeof colorConfig]
 
   return (
     <div
@@ -258,9 +324,9 @@ function FloatingElement({ element }: { element: (typeof floatingElements)[0] })
           <span className="mr-3 text-sm font-medium text-gray-800">{element.label}</span>
 
           {/* Progress indicator */}
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             {element.type === 'phone' && (
-              <div className="mr-1 flex h-5 w-5 items-center justify-center">
+              <div className="flex h-5 w-5 items-center justify-center">
                 <img
                   src={getDemoInsurer('Progressive')?.logoUrl}
                   alt="Progressive"
@@ -268,17 +334,13 @@ function FloatingElement({ element }: { element: (typeof floatingElements)[0] })
                 />
               </div>
             )}
-            <div className="flex gap-0.5">
-              {Array.from({ length: element.progress.total }).map((_, i) => (
-                <div
-                  key={i}
-                  className={`h-2 w-2 rounded-full transition-colors ${
-                    i < element.progress.current ? colors.dot : colors.dotEmpty
-                  }`}
-                />
-              ))}
-            </div>
-            <span className="ml-1 text-xs font-medium text-gray-500">
+            <CircularProgress
+              value={element.progress.current}
+              max={element.progress.total}
+              colorClass={progressColorClass}
+              emptyColorClass={progressEmptyColorClass}
+            />
+            <span className="text-xs font-medium text-gray-500">
               {element.progress.current}/{element.progress.total} {element.progress.label}
             </span>
           </div>
