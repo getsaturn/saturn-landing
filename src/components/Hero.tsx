@@ -1,25 +1,25 @@
 'use client'
 
-import React, { useState } from 'react'
-import { DemoButton } from '@/components/DemoButton'
 import { Container } from '@/components/Container'
-import { ChatBubbleLeftEllipsisIcon, UserCircleIcon } from '@heroicons/react/20/solid'
-import {
-  Home,
-  Waves,
-  Car,
-  BadgeCheckIcon,
-  XIcon,
-  Mail,
-  FileText,
-  Phone,
-  User,
-  XCircle,
-  CheckCircle,
-} from 'lucide-react'
+import { DemoButton } from '@/components/DemoButton'
 import { Badge } from '@/components/ui/badge'
 import { getDemoInsurer } from '@/lib/demo-data'
-import { motion, AnimatePresence } from 'framer-motion'
+import { ChatBubbleLeftEllipsisIcon, UserCircleIcon } from '@heroicons/react/20/solid'
+import { AnimatePresence, motion } from 'framer-motion'
+import {
+  BadgeCheckIcon,
+  Car,
+  CheckCircle,
+  FileText,
+  Home,
+  Mail,
+  Phone,
+  User,
+  Waves,
+  XCircle,
+  XIcon,
+} from 'lucide-react'
+import React, { useState } from 'react'
 
 // Reusable circular progress indicator
 function CircularProgress({ value, max, size = 32 }: { value: number; max: number; size?: number }) {
@@ -247,7 +247,7 @@ export function Hero() {
     <div className="relative isolate overflow-hidden bg-white">
       <svg
         aria-hidden="true"
-        className="mask-[radial-gradient(100%_100%_at_top_right,white,transparent)] absolute inset-0 -z-10 size-full stroke-gray-200"
+        className="absolute inset-0 -z-10 size-full mask-[radial-gradient(100%_100%_at_top_right,white,transparent)] stroke-gray-200"
       >
         <defs>
           <pattern
@@ -271,7 +271,7 @@ export function Hero() {
       </svg>
       <div
         aria-hidden="true"
-        className="absolute left-[calc(50%-4rem)] top-10 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]"
+        className="absolute top-10 left-[calc(50%-4rem)] -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:top-[calc(50%-30rem)] lg:left-48 xl:left-[calc(50%-24rem)]"
       >
         <div
           style={{
@@ -281,7 +281,7 @@ export function Hero() {
           className="aspect-1108/632 w-277 bg-gradient-to-r from-blue-400 to-blue-600 opacity-20"
         />
       </div>
-      <Container className="pb-6 pt-16 sm:pb-8 sm:pt-24 lg:py-8 lg:pt-32">
+      <Container className="pt-16 pb-6 sm:pt-24 sm:pb-8 lg:py-8 lg:pt-32">
         <div className="mx-auto max-w-7xl">
           <div className="mt-8 grid grid-cols-1 items-center gap-6 lg:mt-16 lg:grid-cols-2 lg:gap-8">
             {/* Left side - Content */}
@@ -304,7 +304,7 @@ export function Hero() {
                   <span className="bg-gradient-to-r from-blue-500 to-blue-700 bg-clip-text text-transparent">
                     Autopilot
                   </span>
-                  <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r from-blue-500 to-blue-700"></span>
+                  <span className="absolute right-0 -bottom-1 left-0 h-0.5 rounded-full bg-gradient-to-r from-blue-500 to-blue-700"></span>
                 </div>
               </h1>
 
@@ -342,7 +342,7 @@ export function Hero() {
             {/* Right side - Dashboard with Tabs */}
             <div className="order-2 lg:order-2">
               <div className="relative">
-                <div className="mx-auto w-full max-w-5xl rounded-xl border border-gray-200 bg-white p-4 shadow-2xl lg:p-6">
+                <div className="mx-auto w-full max-w-5xl rounded-xl border border-gray-200 bg-white px-4 pt-4 shadow-lg lg:px-6 lg:pt-6">
                   {/* Activity Tab Content */}
                   {activeTab === 'activity' && (
                     <div className="max-h-64 overflow-y-auto lg:max-h-96">
@@ -366,7 +366,7 @@ export function Hero() {
                                 {activityItemIdx !== activity.length - 1 ? (
                                   <span
                                     aria-hidden="true"
-                                    className="absolute left-5 top-5 -ml-px h-full w-0.5 bg-gray-200"
+                                    className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
                                   />
                                 ) : null}
                                 <div className="relative flex items-start space-x-3">
@@ -413,10 +413,10 @@ export function Hero() {
                                         <img
                                           alt=""
                                           src={activityItem.imageUrl}
-                                          className="flex size-10 items-center justify-center rounded-full bg-gray-400 outline -outline-offset-1 outline-black/5 ring-8 ring-white"
+                                          className="flex size-10 items-center justify-center rounded-full bg-gray-400 ring-8 ring-white outline -outline-offset-1 outline-black/5"
                                         />
 
-                                        <span className="absolute -bottom-0.5 -right-1 rounded-tl bg-white px-0.5 py-px">
+                                        <span className="absolute -right-1 -bottom-0.5 rounded-tl bg-white px-0.5 py-px">
                                           <ChatBubbleLeftEllipsisIcon
                                             aria-hidden="true"
                                             className="size-5 text-gray-400"
@@ -529,7 +529,7 @@ export function Hero() {
                                           <p>{activityItem.summary}</p>
                                         </div>
                                         <div className="mt-2 rounded-lg bg-gray-50 p-3">
-                                          <div className="whitespace-pre-line text-sm text-gray-600">
+                                          <div className="text-sm whitespace-pre-line text-gray-600">
                                             {activityItem.emailContent}
                                           </div>
                                         </div>

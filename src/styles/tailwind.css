@@ -21,6 +21,54 @@ html {
   }
 }
 
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeInFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation:
+    fadeInFloat 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+    float var(--float-duration, 6s) ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s), calc(var(--float-delay, 0s) + 0.8s);
+}
+
+/* Responsive floating element positions */
+:root {
+  --float-left-offset: 3%;
+  --float-right-offset: 85%;
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --float-left-offset: 10%;
+    --float-right-offset: 72%;
+  }
+}
+
+@media (min-width: 1536px) {
+  :root {
+    --float-left-offset: 15%;
+    --float-right-offset: 68%;
+  }
+}
+
 /* Pause all animations when Calendly popup is open */
 .pause-animations *,
 .pause-animations *::before,

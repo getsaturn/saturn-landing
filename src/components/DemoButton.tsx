@@ -1,8 +1,8 @@
 'use client'
 
+import { buttonStyles } from '@/components/Button'
 import { useCalendly } from '@/contexts/CalendlyContext'
 import { cn } from '@/lib/utils'
-import { buttonStyles } from '@/components/Button'
 
 interface DemoButtonProps {
   children: React.ReactNode

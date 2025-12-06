@@ -1,23 +1,20 @@
 'use client'
 
-import React, { Fragment } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
+import { AnimatePresence, motion } from 'framer-motion'
 import {
-  BadgeCheckIcon,
-  XIcon,
   AlertTriangleIcon,
-  MessageCircle,
-  UserCircle,
-  Tag,
+  BadgeCheckIcon,
   CircleDashedIcon,
   FileQuestionMarkIcon,
   InboxIcon,
   ShieldOffIcon,
   SirenIcon,
   XCircleIcon,
+  XIcon,
 } from 'lucide-react'
+import React from 'react'
 
 type SceneId = 'renewal' | 'ocr' | 'dashboard'
 
@@ -130,7 +127,7 @@ export function PolicyStatusBadge({ status, className }: { status: PolicyStatus;
 
 export default function RightPanel({ active, resetKey = 0 }: { active: SceneId; resetKey?: number }) {
   return (
-    <div className="relative mx-auto h-[400px] w-full max-w-[600px] rounded-3xl border border-gray-200 bg-white p-4 shadow-xl lg:h-[600px] lg:w-[600px]">
+    <div className="relative mx-auto h-[400px] w-full max-w-[600px] rounded-3xl border border-gray-200 bg-white p-4 shadow-sm shadow-gray-200/50 lg:h-[600px] lg:w-[600px]">
       <div className="relative h-full w-full overflow-hidden rounded-2xl">
         <AnimatePresence mode="wait">
           {active === 'renewal' && <RenewalScene key={`renewal-${resetKey || 0}`} />}
@@ -348,9 +345,7 @@ function RenewalScene() {
                           </div>
                           <div className="flex-1">
                             <div className="mb-2 flex items-center gap-2">
-                              <span className="text-sm font-medium text-gray-900">
-                                {message.label || message.name}
-                              </span>
+                              <span className="text-sm font-medium text-gray-900">{message.label || message.name}</span>
                               <span className="text-xs text-gray-500">{message.timestamp}</span>
                             </div>
                             <motion.p
@@ -359,13 +354,13 @@ function RenewalScene() {
                               transition={{ delay: 0.3, duration: 0.4 }}
                               className="mb-3 text-sm text-gray-700"
                             >
-                              {message.text.split(/(portal)/g).map((part, i) =>
-                                part === 'portal' ? <u key={i}>{part}</u> : part
-                              )}
+                              {message.text
+                                .split(/(portal)/g)
+                                .map((part, i) => (part === 'portal' ? <u key={i}>{part}</u> : part))}
                             </motion.p>
                             {message.emailContent && (
                               <div className="mb-3 max-w-[400px] rounded-lg border border-gray-200 bg-gray-50 p-3">
-                                <pre className="whitespace-pre-wrap font-sans text-xs text-gray-600">
+                                <pre className="font-sans text-xs whitespace-pre-wrap text-gray-600">
                                   {message.emailContent}
                                 </pre>
                               </div>
@@ -448,15 +443,13 @@ function RenewalScene() {
                           </div>
                           <div className="flex-1">
                             <div className="mb-2 flex items-center gap-2">
-                              <span className="text-sm font-medium text-gray-900">
-                                {message.label || 'System'}
-                              </span>
+                              <span className="text-sm font-medium text-gray-900">{message.label || 'System'}</span>
                               <span className="text-xs text-gray-500">{message.timestamp}</span>
                             </div>
                             <p className="mb-3 text-sm text-gray-700">{message.text}</p>
                             {message.emailContent && (
                               <div className="mb-3 max-w-[400px] rounded-lg border border-gray-200 bg-gray-50 p-3">
-                                <pre className="whitespace-pre-wrap font-sans text-xs text-gray-600">
+                                <pre className="font-sans text-xs whitespace-pre-wrap text-gray-600">
                                   {message.emailContent}
                                 </pre>
                               </div>
