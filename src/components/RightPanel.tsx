@@ -107,7 +107,7 @@ const statusConfig: Record<PolicyStatus, StatusConfig> = {
   FORCE_PLACED: {
     label: 'Force-Placed',
     icon: SirenIcon,
-    className: 'border-purple-300 bg-purple-100 text-purple-900',
+    className: 'border-amber-300 bg-amber-100 text-amber-900',
   },
 }
 
@@ -343,7 +343,7 @@ function RenewalScene() {
                     <div className="flex items-start gap-3">
                       {message.type === 'ai' ? (
                         <>
-                          <div className="flex size-8 items-center justify-center rounded-full bg-purple-500">
+                          <div className="flex size-8 items-center justify-center rounded-full bg-blue-600">
                             <span className="text-xs font-bold text-white">AI</span>
                           </div>
                           <div className="flex-1">
@@ -416,7 +416,7 @@ function RenewalScene() {
                                   ? 'bg-green-500'
                                   : message.label === 'Document uploaded from John Doe'
                                     ? 'bg-blue-500'
-                                    : 'bg-purple-500'
+                                    : 'bg-blue-600'
                             }`}
                           >
                             {message.label === 'Policy set to expire' ? (

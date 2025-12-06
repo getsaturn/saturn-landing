@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
 type Step = {
   id: string
@@ -23,8 +23,6 @@ const cardVariants = {
   exit: { opacity: 0, y: -10, scale: 0.98 },
 }
 
-// Removed progressVariants due to TypeScript issues
-
 const checkVariants = {
   hidden: { pathLength: 0, opacity: 0 },
   visible: { pathLength: 1, opacity: 1, transition: { duration: 0.5 } },
@@ -33,26 +31,12 @@ const checkVariants = {
 export default function AnimatedFlowPanel({
   steps = DEFAULT_STEPS,
   loopDelayMs = 800,
-  tilt = true,
 }: {
   steps?: Step[]
   loopDelayMs?: number
-  tilt?: boolean
 }) {
   const [index, setIndex] = React.useState(0)
   const [phase, setPhase] = React.useState<'idle' | 'filling' | 'checked'>('idle')
-
-  // subtle interactive tilt
-  const mx = useMotionValue(0)
-  const my = useMotionValue(0)
-  const rx = useTransform(my, [-80, 80], [8, -8])
-  const ry = useTransform(mx, [-80, 80], [-8, 8])
-
-  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const r = e.currentTarget.getBoundingClientRect()
-    mx.set(e.clientX - (r.left + r.width / 2))
-    my.set(e.clientY - (r.top + r.height / 2))
-  }
 
   React.useEffect(() => {
     // timeline per step: progress fill -> check -> next
@@ -74,17 +58,9 @@ export default function AnimatedFlowPanel({
   const current = steps[index]
 
   return (
-    <motion.div
-      onMouseMove={tilt ? onMove : undefined}
-      onMouseLeave={() => {
-        mx.set(0)
-        my.set(0)
-      }}
-      style={tilt ? { rotateX: rx, rotateY: ry } : {}}
-      className="relative w-full rounded-3xl border border-slate-200 bg-white p-4 shadow-xl md:p-6"
-    >
+    <div className="relative w-full rounded-3xl border border-slate-200 bg-white p-4 shadow-xl md:p-6">
       {/* subtle bg */}
-      <div className="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-sky-100 via-white to-indigo-50" />
+      <div className="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-sky-100 via-white to-blue-50" />
 
       {/* header */}
       <div className="mb-4 flex items-center justify-between">
@@ -193,6 +169,6 @@ export default function AnimatedFlowPanel({
 
       {/* soft ring */}
       <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/40" />
-    </motion.div>
+    </div>
   )
 }

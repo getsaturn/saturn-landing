@@ -19,7 +19,7 @@ function ArrowRightIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 export function Newsletter() {
   return (
     <section id="contact" aria-label="Contact" className="relative z-10 -mb-16">
-      <div className="bg-indigo-100 dark:bg-indigo-950">
+      <div className="bg-blue-100 dark:bg-blue-950">
         <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:justify-between lg:px-8">
           <h2 className="max-w-2xl text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">
             Ready to dive in?

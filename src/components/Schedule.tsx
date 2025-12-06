@@ -255,7 +255,7 @@ function TimeSlots({ day, className }: { day: Day; className?: string }) {
           key={timeSlot.start}
           aria-label={`${timeSlot.name} talking about ${timeSlot.description} at ${timeSlot.start} - ${timeSlot.end} PST`}
         >
-          {timeSlotIndex > 0 && <div className="mx-auto mb-8 h-px w-48 bg-indigo-500/10" />}
+          {timeSlotIndex > 0 && <div className="mx-auto mb-8 h-px w-48 bg-blue-500/10" />}
           <h4 className="text-lg font-semibold tracking-tight text-blue-900">{timeSlot.name}</h4>
           {timeSlot.description && <p className="mt-1 tracking-tight text-blue-900">{timeSlot.description}</p>}
           <p className="mt-1 font-mono text-sm text-slate-500">

@@ -5,7 +5,7 @@ import backgroundImage from '@/images/background.jpg'
 
 export function BackgroundImage({ className, position = 'left' }: { className?: string; position?: 'left' | 'right' }) {
   return (
-    <div className={clsx('absolute inset-0 overflow-hidden bg-indigo-50', className)}>
+    <div className={clsx('absolute inset-0 overflow-hidden bg-blue-50', className)}>
       <Image
         className={clsx(
           'absolute top-0',

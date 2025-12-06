@@ -9,7 +9,7 @@ const features = [
     description:
       'Drop-in APIs and webhooks connect Saturn to your LOS, servicing, and CRM in hours. We read and write back to your systems of record.',
     icon: (
-      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-indigo-600">
+      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600">
         <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
@@ -60,7 +60,7 @@ const features = [
     description:
       'AI orchestrates email, SMS, and voice with brokers and borrowers, tracks replies, and follows up until fully compliant.',
     icon: (
-      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-600">
+      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-sky-600">
         <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
@@ -147,13 +147,13 @@ export function Features() {
 
         {/* Email Sent to Borrower - top left (second row) */}
         <div className="absolute left-[10%] top-[30%] flex flex-col items-center">
-          <div className="inline-flex rotate-[25deg] transform items-center rounded-lg border border-purple-300 bg-purple-50 px-3 py-2">
-            <div className="mr-3 rounded bg-purple-600 px-2 py-1 text-xs font-medium text-white">@</div>
+          <div className="inline-flex rotate-[25deg] transform items-center rounded-lg border border-blue-300 bg-blue-50 px-3 py-2">
+            <div className="mr-3 rounded bg-blue-600 px-2 py-1 text-xs font-medium text-white">@</div>
             <span className="mr-3 text-sm font-medium text-gray-900">alex@pinnacle.com</span>
             <div className="flex items-center space-x-1">
               <div className="flex space-x-0.5">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className={`h-2 w-2 rounded-full ${i <= 2 ? 'bg-purple-500' : 'bg-gray-300'}`} />
+                  <div key={i} className={`h-2 w-2 rounded-full ${i <= 2 ? 'bg-blue-500' : 'bg-gray-300'}`} />
                 ))}
               </div>
               <span className="ml-1 text-xs text-gray-600">2/3 Sent</span>
@@ -163,8 +163,8 @@ export function Features() {
 
         {/* Phone Call to Broker - top right (second row) */}
         <div className="absolute right-[10%] top-[30%] flex flex-col items-center">
-          <div className="inline-flex -rotate-[35deg] transform items-center rounded-lg border border-indigo-300 bg-indigo-50 px-3 py-2">
-            <div className="mr-3 flex items-center justify-center rounded bg-indigo-600 px-2 py-1 text-xs font-medium text-white">
+          <div className="inline-flex -rotate-[35deg] transform items-center rounded-lg border border-sky-300 bg-sky-50 px-3 py-2">
+            <div className="mr-3 flex items-center justify-center rounded bg-sky-600 px-2 py-1 text-xs font-medium text-white">
               <Phone className="h-3 w-3" />
             </div>
             <span className="mr-3 text-sm font-medium text-gray-900">Called Broker</span>
@@ -178,7 +178,7 @@ export function Features() {
               </div>
               <div className="flex space-x-0.5">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className={`h-2 w-2 rounded-full ${i <= 1 ? 'bg-indigo-500' : 'bg-gray-300'}`} />
+                  <div key={i} className={`h-2 w-2 rounded-full ${i <= 1 ? 'bg-sky-500' : 'bg-gray-300'}`} />
                 ))}
               </div>
               <span className="ml-1 text-xs text-gray-600">1/3 Calls</span>
@@ -224,19 +224,17 @@ export function Features() {
                 <div
                   className="flex h-10 w-10 items-center justify-center rounded-lg sm:h-12 sm:w-12"
                   style={{
-                    backgroundColor: feature.icon.props.className.includes('bg-indigo-600')
-                      ? '#4f46e5'
-                      : feature.icon.props.className.includes('bg-blue-600')
+                    backgroundColor: feature.icon.props.className.includes('bg-blue-600')
                         ? '#2563eb'
                         : feature.icon.props.className.includes('bg-orange-600')
                           ? '#ea580c'
-                          : feature.icon.props.className.includes('bg-purple-600')
-                            ? '#9333ea'
+                          : feature.icon.props.className.includes('bg-sky-600')
+                            ? '#0284c7'
                             : feature.icon.props.className.includes('bg-green-600')
                               ? '#16a34a'
                               : feature.icon.props.className.includes('bg-teal-600')
                                 ? '#0d9488'
-                                : '#4f46e5',
+                                : '#2563eb',
                   }}
                 >
                   {React.cloneElement(feature.icon, {

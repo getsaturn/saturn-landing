@@ -249,11 +249,11 @@ export function Speakers() {
                       <div
                         className={clsx(
                           'rounded-4xl absolute bottom-6 left-0 right-4 top-0 border transition duration-300 group-hover:scale-95 xl:right-6',
-                          ['border-blue-300', 'border-indigo-300', 'border-sky-300'][speakerIndex % 3]
+                          ['border-blue-300', 'border-sky-300', 'border-blue-400'][speakerIndex % 3]
                         )}
                       />
                       <div
-                        className="absolute inset-0 bg-indigo-50"
+                        className="absolute inset-0 bg-blue-50"
                         style={{ clipPath: `url(#${id}-${speakerIndex % 3})` }}
                       >
                         <Image

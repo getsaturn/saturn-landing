@@ -1,9 +1,9 @@
 'use client'
 
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 import { DemoButton } from '@/components/DemoButton'
 import { Container } from '@/components/Container'
-import { ChatBubbleLeftEllipsisIcon, TagIcon, UserCircleIcon } from '@heroicons/react/20/solid'
+import { ChatBubbleLeftEllipsisIcon, UserCircleIcon } from '@heroicons/react/20/solid'
 import {
   Home,
   Waves,
@@ -20,6 +20,37 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { getDemoInsurer } from '@/lib/demo-data'
 import { motion, AnimatePresence } from 'framer-motion'
+
+// Reusable circular progress indicator
+function CircularProgress({ value, max, size = 32 }: { value: number; max: number; size?: number }) {
+  const percentage = (value / max) * 100
+  return (
+    <div className="relative" style={{ height: size, width: size }}>
+      <svg className="h-full w-full" viewBox="0 0 36 36">
+        <path
+          className="text-gray-200"
+          stroke="currentColor"
+          strokeWidth="3"
+          fill="none"
+          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <path
+          className="text-blue-600"
+          stroke="currentColor"
+          strokeWidth="3"
+          fill="none"
+          strokeDasharray={`${percentage}, 100`}
+          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+      </svg>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span className="text-xs font-semibold text-blue-600">
+          {value}/{max}
+        </span>
+      </div>
+    </div>
+  )
+}
 
 const activity = [
   {
@@ -81,10 +112,6 @@ const activity = [
     date: '2d ago',
   },
 ]
-
-function classNames(...classes: (string | undefined | null | false)[]) {
-  return classes.filter(Boolean).join(' ')
-}
 
 // Notification data for cycling animation
 const notifications = [
@@ -325,32 +352,7 @@ export function Hero() {
                       <div className="mb-4 flex items-center justify-between">
                         <h3 className="text-lg font-semibold text-gray-900">Recent Activity</h3>
                         <div className="flex items-center space-x-2">
-                          <div className="relative h-8 w-8">
-                            <svg className="h-8 w-8" viewBox="0 0 36 36">
-                              <path
-                                className="text-gray-200"
-                                stroke="currentColor"
-                                strokeWidth="3"
-                                fill="none"
-                                d="M18 2.0845
-                                  a 15.9155 15.9155 0 0 1 0 31.831
-                                  a 15.9155 15.9155 0 0 1 0 -31.831"
-                              />
-                              <path
-                                className="text-blue-600"
-                                stroke="currentColor"
-                                strokeWidth="3"
-                                fill="none"
-                                strokeDasharray="50, 100"
-                                d="M18 2.0845
-                                  a 15.9155 15.9155 0 0 1 0 31.831
-                                  a 15.9155 15.9155 0 0 1 0 -31.831"
-                              />
-                            </svg>
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <span className="text-xs font-semibold text-blue-600">2/4</span>
-                            </div>
-                          </div>
+                          <CircularProgress value={2} max={4} />
                           <Badge variant="green" icon={BadgeCheckIcon}>
                             Compliant
                           </Badge>
@@ -655,32 +657,7 @@ export function Hero() {
                       <div className="mb-3 flex items-center justify-between">
                         <h3 className="text-base font-semibold text-gray-900">Tech Innovations LLC</h3>
                         <div className="flex items-center space-x-2">
-                          <div className="relative h-8 w-8">
-                            <svg className="h-8 w-8" viewBox="0 0 36 36">
-                              <path
-                                className="text-gray-200"
-                                stroke="currentColor"
-                                strokeWidth="3"
-                                fill="none"
-                                d="M18 2.0845
-                                  a 15.9155 15.9155 0 0 1 0 31.831
-                                  a 15.9155 15.9155 0 0 1 0 -31.831"
-                              />
-                              <path
-                                className="text-blue-600"
-                                stroke="currentColor"
-                                strokeWidth="3"
-                                fill="none"
-                                strokeDasharray="50, 100"
-                                d="M18 2.0845
-                                  a 15.9155 15.9155 0 0 1 0 31.831
-                                  a 15.9155 15.9155 0 0 1 0 -31.831"
-                              />
-                            </svg>
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <span className="text-xs font-semibold text-blue-600">2/4</span>
-                            </div>
-                          </div>
+                          <CircularProgress value={2} max={4} />
                           <Badge variant="green" icon={BadgeCheckIcon}>
                             Compliant
                           </Badge>
