@@ -189,7 +189,7 @@ export function Features() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl sm:text-center">
-          <p className="text-pretty text-2xl font-semibold tracking-tight text-gray-900 sm:text-balance sm:text-4xl lg:text-5xl">
+          <p className="font-display text-pretty text-3xl tracking-tight text-gray-900 sm:text-balance sm:text-4xl lg:text-5xl">
             Complete insurance compliance automation
           </p>
           <p className="mt-4 text-base text-gray-600 sm:text-lg/8">

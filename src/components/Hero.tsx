@@ -298,15 +298,13 @@ export function Hero() {
                 </a>
               </div>
 
-              <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl lg:text-4xl">
-                <div className="text-center">
-                  <div>Insurance Compliance on</div>
-                  <div className="relative inline-block">
-                    <span className="bg-gradient-to-r from-blue-500 to-blue-700 bg-clip-text font-bold text-transparent">
-                      Autopilot
-                    </span>
-                    <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r from-blue-500 to-blue-700"></span>
-                  </div>
+              <h1 className="font-display text-3xl tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
+                <div>Insurance Compliance on</div>
+                <div className="relative inline-block">
+                  <span className="bg-gradient-to-r from-blue-500 to-blue-700 bg-clip-text text-transparent">
+                    Autopilot
+                  </span>
+                  <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r from-blue-500 to-blue-700"></span>
                 </div>
               </h1>
 

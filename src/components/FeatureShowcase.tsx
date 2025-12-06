@@ -62,7 +62,7 @@ export default function FeatureShowcase() {
         <div className="grid gap-10 md:gap-12 lg:grid-cols-2 lg:items-start">
           {/* Left: Feature list */}
           <div className="flex flex-col justify-center">
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">
+            <h2 className="font-display text-3xl tracking-tight text-slate-900 md:text-4xl">
               Automate the painful parts of servicing.
             </h2>
             <p className="mt-3 max-w-prose text-slate-600">

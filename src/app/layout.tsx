@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { type Metadata } from 'next'
-import { DM_Sans, Inter } from 'next/font/google'
+import { Inter, Instrument_Serif } from 'next/font/google'
 
 import { CalendlyWrapper } from '@/components/CalendlyWrapper'
 import { CalendlyProvider } from '@/contexts/CalendlyContext'
@@ -12,11 +12,11 @@ const inter = Inter({
   variable: '--font-inter',
 })
 
-const dmSans = DM_Sans({
+const instrumentSerif = Instrument_Serif({
   subsets: ['latin'],
-  weight: ['400', '500', '700'],
+  weight: ['400'],
   display: 'swap',
-  variable: '--font-dm-sans',
+  variable: '--font-instrument-serif',
 })
 
 export const metadata: Metadata = {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={clsx('h-full bg-white antialiased', inter.variable, dmSans.variable)}>
+    <html lang="en" className={clsx('h-full bg-white antialiased', inter.variable, instrumentSerif.variable)}>
       <body suppressHydrationWarning className="flex min-h-full">
         <CalendlyProvider>
           <div className="flex w-full flex-col">{children}</div>

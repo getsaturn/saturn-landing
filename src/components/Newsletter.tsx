@@ -21,7 +21,7 @@ export function Newsletter() {
     <section id="contact" aria-label="Contact" className="relative z-10 -mb-16">
       <div className="bg-blue-100 dark:bg-blue-950">
         <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:justify-between lg:px-8">
-          <h2 className="max-w-2xl text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">
+          <h2 className="max-w-2xl font-display text-4xl tracking-tight text-gray-900 sm:text-5xl dark:text-white">
             Ready to dive in?
             <br />
             Book a product demo today.
