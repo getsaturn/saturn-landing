@@ -167,13 +167,13 @@ function AnimatedNotificationCard() {
 
   return (
     <div className="w-full rounded-xl border border-slate-200 bg-white p-3 shadow-lg">
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={current.id}
-          initial={{ opacity: 0, y: 8, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -8, scale: 0.98 }}
-          transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15 }}
           className="flex items-center justify-between"
         >
           <div className="flex items-center gap-3">
@@ -224,19 +224,20 @@ function AnimatedNotificationCard() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Success status bar */}
-      <AnimatePresence>
-        {phase === 'checked' && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="mt-2 rounded-lg bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700"
-          >
+      {/* Success status bar - uses CSS grid for smooth height animation */}
+      <div
+        className="grid transition-all duration-300 ease-out"
+        style={{
+          gridTemplateRows: phase === 'checked' ? '1fr' : '0fr',
+          opacity: phase === 'checked' ? 1 : 0,
+        }}
+      >
+        <div className="min-h-0 overflow-hidden">
+          <div className="mt-2 rounded-lg bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700">
             Updated and compliant
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
