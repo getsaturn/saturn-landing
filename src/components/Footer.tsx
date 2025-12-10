@@ -1,6 +1,5 @@
 import { Container } from '@/components/Container'
-import Image from 'next/image'
-import logoImage from '@/images/logos/logo.png'
+import { Logo } from '@/components/Logo'
 
 export function Footer() {
   return (
@@ -123,8 +122,9 @@ export function Footer() {
 
         {/* Bottom Section */}
         <div className="mt-12 flex flex-col items-center justify-between border-t border-blue-800 pt-8 md:flex-row">
-          <div className="relative mb-4 flex h-8 w-32 items-center justify-center md:mb-0">
-            <Image src={logoImage} alt="Saturn Logo" width={128} height={32} className="object-contain" />
+          <div className="mb-4 flex items-center gap-2.5 md:mb-0">
+            <Logo className="size-7 text-white" />
+            <span className="pt-0.5 font-display text-[2.2rem] leading-none text-white">Saturn</span>
           </div>
           <p className="text-sm text-blue-200">
             Copyright &copy; {new Date().getFullYear()} Saturn, Inc. All rights reserved.

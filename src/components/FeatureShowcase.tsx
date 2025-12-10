@@ -1,7 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState, useCallback } from 'react'
-import { motion, useSpring } from 'framer-motion'
+import React, { useRef, useState } from 'react'
 import RightPanel from '@/components/RightPanel'
 import { Container } from '@/components/Container'
 import { DemoButton } from '@/components/DemoButton'
@@ -46,34 +45,13 @@ const FEATURES: Feature[] = [
   },
 ]
 
-function useMagnetic(delta = 20) {
-  // Small, snappy magnetic effect for the CTA
-  const x = useSpring(0, { stiffness: 500, damping: 30, mass: 0.2 })
-  const y = useSpring(0, { stiffness: 500, damping: 30, mass: 0.2 })
-
-  function onMouseMove(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    const target = e.currentTarget.getBoundingClientRect()
-    const relX = e.clientX - (target.left + target.width / 2)
-    const relY = e.clientY - (target.top + target.height / 2)
-    x.set((relX / (target.width / 2)) * delta)
-    y.set((relY / (target.height / 2)) * delta)
-  }
-  function onMouseLeave() {
-    x.set(0)
-    y.set(0)
-  }
-  return { x, y, onMouseMove, onMouseLeave }
-}
-
 export default function FeatureShowcase() {
   const [active, setActive] = React.useState<Feature>(FEATURES[0])
   const [resetKey, setResetKey] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
 
-  const mag = useMagnetic(14)
-
   // Handle feature switching
-  const handleFeatureSwitch = (feature: Feature, index: number) => {
+  const handleFeatureSwitch = (feature: Feature) => {
     setActive(feature)
     setResetKey((prev) => prev + 1)
   }
@@ -84,7 +62,7 @@ export default function FeatureShowcase() {
         <div className="grid gap-10 md:gap-12 lg:grid-cols-2 lg:items-start">
           {/* Left: Feature list */}
           <div className="flex flex-col justify-center">
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">
+            <h2 className="font-display text-3xl tracking-tight text-slate-900 md:text-4xl">
               Automate the painful parts of servicing.
             </h2>
             <p className="mt-3 max-w-prose text-slate-600">
@@ -100,7 +78,7 @@ export default function FeatureShowcase() {
                   <li key={f.id}>
                     <button
                       onMouseEnter={() => setActive(f)}
-                      onClick={() => handleFeatureSwitch(f, index)}
+                      onClick={() => handleFeatureSwitch(f)}
                       className={[
                         'group w-full rounded-xl border px-4 py-3 text-left transition-all duration-500',
                         isActive
@@ -148,25 +126,15 @@ export default function FeatureShowcase() {
               })}
             </ul>
 
-            {/* Magnetic CTA */}
+            {/* CTA */}
             <div className="mt-8 flex items-center gap-4">
-              <motion.div
-                onMouseMove={mag.onMouseMove}
-                onMouseLeave={mag.onMouseLeave}
-                style={{ x: mag.x, y: mag.y }}
-                whileTap={{ scale: 0.97 }}
-                className="relative"
-              >
-                <DemoButton className="inline-flex items-center justify-center gap-2 rounded-2xl border border-sky-300 bg-sky-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-600/20 transition hover:bg-sky-500">
-                  Book a Demo
-                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M5 12h14" />
-                    <path d="M13 5l7 7-7 7" />
-                  </svg>
-                  {/* subtle glow */}
-                  <span className="pointer-events-none absolute inset-0 -z-10 rounded-2xl bg-sky-400/30 blur-xl" />
-                </DemoButton>
-              </motion.div>
+              <DemoButton className="inline-flex items-center justify-center gap-2">
+                Book a Demo
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M5 12h14" />
+                  <path d="M13 5l7 7-7 7" />
+                </svg>
+              </DemoButton>
 
               <a
                 href="#learn-more"

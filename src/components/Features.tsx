@@ -1,7 +1,118 @@
-import React from 'react'
-import Image from 'next/image'
+'use client'
+
 import { getDemoInsurer } from '@/lib/demo-data'
-import { Phone } from 'lucide-react'
+import { MessageSquare, Phone } from 'lucide-react'
+import Image from 'next/image'
+import React from 'react'
+
+// Floating decorative elements - 5 elements, zigzag pattern
+// Positions use CSS variables for responsive behavior:
+// --float-left-offset and --float-right-offset change at different breakpoints
+const floatingElements = [
+  {
+    id: 'policy-green',
+    type: 'pdf',
+    label: 'Policy_4782_Certificate',
+    color: 'green',
+    progress: { current: 5, total: 5, label: 'Checks' },
+    position: { x: 'var(--float-right-offset)', y: '5%' },
+    rotation: 4,
+    scale: 1,
+    opacity: 1,
+    animationDelay: '0s',
+    animationDuration: '8s',
+  },
+  {
+    id: 'policy-pink',
+    type: 'pdf',
+    label: 'Policy_123123',
+    color: 'pink',
+    progress: { current: 3, total: 5, label: 'Compliant' },
+    position: { x: 'var(--float-left-offset)', y: '10%' },
+    rotation: -3,
+    scale: 0.94,
+    opacity: 0.95,
+    animationDelay: '0.8s',
+    animationDuration: '7s',
+  },
+  {
+    id: 'phone',
+    type: 'phone',
+    label: 'Called Broker',
+    color: 'sky',
+    progress: { current: 1, total: 3, label: 'Calls' },
+    position: { x: 'calc(var(--float-right-offset) + 2%)', y: '20%' },
+    rotation: -3,
+    scale: 0.92,
+    opacity: 0.95,
+    animationDelay: '1.5s',
+    animationDuration: '7s',
+  },
+  {
+    id: 'sms',
+    type: 'sms',
+    label: 'SMS Reminder',
+    color: 'purple',
+    progress: { current: 4, total: 4, label: 'Delivered' },
+    position: { x: 'calc(var(--float-left-offset) - 2%)', y: '24%' },
+    rotation: 3,
+    scale: 0.88,
+    opacity: 0.9,
+    animationDelay: '2.2s',
+    animationDuration: '6.5s',
+  },
+  {
+    id: 'email',
+    type: 'email',
+    label: 'alex@pinnacle.com',
+    color: 'blue',
+    progress: { current: 2, total: 3, label: 'Sent' },
+    position: { x: 'calc(var(--float-right-offset) + 4%)', y: '34%' },
+    rotation: 2,
+    scale: 0.86,
+    opacity: 0.88,
+    animationDelay: '3s',
+    animationDuration: '6s',
+  },
+]
+
+const colorConfig = {
+  pink: {
+    border: 'border-pink-200/80',
+    bg: 'bg-gradient-to-br from-pink-50 to-white',
+    badge: 'bg-pink-600',
+    dot: 'bg-pink-500',
+    dotEmpty: 'bg-pink-200',
+  },
+  green: {
+    border: 'border-emerald-200/80',
+    bg: 'bg-gradient-to-br from-emerald-50 to-white',
+    badge: 'bg-emerald-600',
+    dot: 'bg-emerald-500',
+    dotEmpty: 'bg-emerald-200',
+  },
+  blue: {
+    border: 'border-blue-200/80',
+    bg: 'bg-gradient-to-br from-blue-50 to-white',
+    badge: 'bg-blue-600',
+    dot: 'bg-blue-500',
+    dotEmpty: 'bg-blue-200',
+  },
+  sky: {
+    border: 'border-sky-200/80',
+    bg: 'bg-gradient-to-br from-sky-50 to-white',
+    badge: 'bg-sky-600',
+    dot: 'bg-sky-500',
+    dotEmpty: 'bg-sky-200',
+  },
+  purple: {
+    border: 'border-violet-200/80',
+    bg: 'bg-gradient-to-br from-violet-50 to-white',
+    badge: 'bg-violet-600',
+    dot: 'bg-violet-500',
+    dotEmpty: 'bg-violet-200',
+  },
+}
 
 const features = [
   {
@@ -9,7 +120,7 @@ const features = [
     description:
       'Drop-in APIs and webhooks connect Saturn to your LOS, servicing, and CRM in hours. We read and write back to your systems of record.',
     icon: (
-      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-indigo-600">
+      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600">
         <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
@@ -60,7 +171,7 @@ const features = [
     description:
       'AI orchestrates email, SMS, and voice with brokers and borrowers, tracks replies, and follows up until fully compliant.',
     icon: (
-      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-600">
+      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-sky-600">
         <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
@@ -108,88 +219,150 @@ const features = [
   },
 ]
 
-export function Features() {
+// Circular progress indicator for floating elements
+function CircularProgress({
+  value,
+  max,
+  colorClass,
+  emptyColorClass,
+}: {
+  value: number
+  max: number
+  colorClass: string
+  emptyColorClass: string
+}) {
+  const percentage = (value / max) * 100
+  const size = 20
+  const strokeWidth = 6
+  const radius = (36 - strokeWidth) / 2
+  const circumference = 2 * Math.PI * radius
+
   return (
-    <div id="features" className="relative overflow-hidden bg-white py-8 sm:py-16 lg:py-20">
-      {/* Background decorative elements - hidden on mobile */}
-      <div className="pointer-events-none absolute inset-0 z-10 hidden lg:block">
-        {/* Policy Notice - top left */}
-        <div className="absolute left-[10%] top-[10%] flex flex-col items-center">
-          <div className="inline-flex -rotate-[25deg] transform items-center rounded-lg border border-pink-300 bg-pink-50 px-3 py-2">
-            <div className="mr-3 rounded bg-pink-600 px-2 py-1 text-xs font-medium text-white">PDF</div>
-            <span className="mr-3 text-sm font-medium text-gray-900">Policy_123123</span>
-            <div className="flex items-center space-x-1">
-              <div className="flex space-x-0.5">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} className={`h-2 w-2 rounded-full ${i <= 3 ? 'bg-pink-500' : 'bg-gray-300'}`} />
-                ))}
-              </div>
-              <span className="ml-1 text-xs text-gray-600">3/5 Compliant</span>
-            </div>
-          </div>
-        </div>
+    <div className="relative" style={{ height: size, width: size }}>
+      <svg className="h-full w-full -rotate-90" viewBox="0 0 36 36">
+        {/* Background circle */}
+        <circle
+          className={emptyColorClass}
+          stroke="currentColor"
+          strokeWidth={strokeWidth}
+          fill="none"
+          cx="18"
+          cy="18"
+          r={radius}
+        />
+        {/* Progress circle */}
+        <circle
+          className={colorClass}
+          stroke="currentColor"
+          strokeWidth={strokeWidth}
+          fill="none"
+          cx="18"
+          cy="18"
+          r={radius}
+          strokeDasharray={circumference}
+          strokeDashoffset={circumference - (percentage / 100) * circumference}
+          strokeLinecap="round"
+        />
+      </svg>
+    </div>
+  )
+}
 
-        {/* Compliant - top right */}
-        <div className="absolute right-[10%] top-[10%] flex flex-col items-center">
-          <div className="rotate-25 inline-flex transform items-center rounded-lg border border-green-300 bg-green-50 px-3 py-2">
-            <div className="mr-3 rounded bg-green-600 px-2 py-1 text-xs font-medium text-white">PDF</div>
-            <span className="mr-3 text-sm font-medium text-gray-900">Policy_4782_Certificate</span>
-            <div className="flex items-center space-x-1">
-              <div className="flex space-x-0.5">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} className={`h-2 w-2 rounded-full ${i <= 5 ? 'bg-green-500' : 'bg-gray-300'}`} />
-                ))}
-              </div>
-              <span className="ml-1 text-xs text-gray-600">5/5 Checks</span>
-            </div>
-          </div>
-        </div>
+function FloatingElement({ element }: { element: (typeof floatingElements)[0] }) {
+  const colors = colorConfig[element.color as keyof typeof colorConfig]
 
-        {/* Email Sent to Borrower - top left (second row) */}
-        <div className="absolute left-[10%] top-[30%] flex flex-col items-center">
-          <div className="inline-flex rotate-[25deg] transform items-center rounded-lg border border-purple-300 bg-purple-50 px-3 py-2">
-            <div className="mr-3 rounded bg-purple-600 px-2 py-1 text-xs font-medium text-white">@</div>
-            <span className="mr-3 text-sm font-medium text-gray-900">alex@pinnacle.com</span>
-            <div className="flex items-center space-x-1">
-              <div className="flex space-x-0.5">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className={`h-2 w-2 rounded-full ${i <= 2 ? 'bg-purple-500' : 'bg-gray-300'}`} />
-                ))}
-              </div>
-              <span className="ml-1 text-xs text-gray-600">2/3 Sent</span>
-            </div>
-          </div>
-        </div>
+  // Map color config to text classes for the circular progress
+  const progressColorClass = {
+    pink: 'text-pink-500',
+    green: 'text-emerald-500',
+    blue: 'text-blue-500',
+    sky: 'text-sky-500',
+    purple: 'text-violet-500',
+  }[element.color as keyof typeof colorConfig]
 
-        {/* Phone Call to Broker - top right (second row) */}
-        <div className="absolute right-[10%] top-[30%] flex flex-col items-center">
-          <div className="inline-flex -rotate-[35deg] transform items-center rounded-lg border border-indigo-300 bg-indigo-50 px-3 py-2">
-            <div className="mr-3 flex items-center justify-center rounded bg-indigo-600 px-2 py-1 text-xs font-medium text-white">
-              <Phone className="h-3 w-3" />
-            </div>
-            <span className="mr-3 text-sm font-medium text-gray-900">Called Broker</span>
-            <div className="flex items-center space-x-1">
-              <div className="mr-2 flex h-4 w-4 items-center justify-center">
+  const progressEmptyColorClass = {
+    pink: 'text-pink-200',
+    green: 'text-emerald-200',
+    blue: 'text-blue-200',
+    sky: 'text-sky-200',
+    purple: 'text-violet-200',
+  }[element.color as keyof typeof colorConfig]
+
+  return (
+    <div
+      className="absolute"
+      style={{
+        left: element.position.x,
+        top: element.position.y,
+        transform: `rotate(${element.rotation}deg) scale(${element.scale})`,
+        opacity: element.opacity,
+      }}
+    >
+      <div
+        className="animate-float"
+        style={
+          {
+            '--float-delay': element.animationDelay,
+            '--float-duration': element.animationDuration,
+          } as React.CSSProperties
+        }
+      >
+        <div
+          className={`inline-flex items-center rounded-xl border ${colors.border} ${colors.bg} px-3 py-2.5 shadow-md shadow-gray-400/10 backdrop-blur-sm transition-all duration-500`}
+        >
+          {/* Badge */}
+          <div
+            className={`mr-3 flex items-center justify-center rounded-lg ${colors.badge} px-2 py-1.5 text-xs font-semibold text-white shadow-sm`}
+          >
+            {element.type === 'pdf' && 'PDF'}
+            {element.type === 'email' && '@'}
+            {element.type === 'phone' && <Phone className="h-3.5 w-3.5" />}
+            {element.type === 'sms' && <MessageSquare className="h-3.5 w-3.5" />}
+          </div>
+
+          {/* Label */}
+          <span className="mr-3 text-sm font-medium text-gray-800">{element.label}</span>
+
+          {/* Progress indicator */}
+          <div className="flex items-center gap-2">
+            {element.type === 'phone' && (
+              <div className="flex h-5 w-5 items-center justify-center">
                 <img
                   src={getDemoInsurer('Progressive')?.logoUrl}
                   alt="Progressive"
-                  className="h-3 w-3 flex-shrink-0 rounded object-contain"
+                  className="h-4 w-4 flex-shrink-0 rounded object-contain"
                 />
               </div>
-              <div className="flex space-x-0.5">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className={`h-2 w-2 rounded-full ${i <= 1 ? 'bg-indigo-500' : 'bg-gray-300'}`} />
-                ))}
-              </div>
-              <span className="ml-1 text-xs text-gray-600">1/3 Calls</span>
-            </div>
+            )}
+            <CircularProgress
+              value={element.progress.current}
+              max={element.progress.total}
+              colorClass={progressColorClass}
+              emptyColorClass={progressEmptyColorClass}
+            />
+            <span className="text-xs font-medium text-gray-500">
+              {element.progress.current}/{element.progress.total} {element.progress.label}
+            </span>
           </div>
         </div>
+      </div>
+    </div>
+  )
+}
+
+export function Features() {
+  return (
+    <div id="features" className="relative overflow-hidden bg-white pt-16 pb-8 sm:pt-24 sm:pb-16 lg:pt-32 lg:pb-20">
+      {/* Floating decorative elements - hidden on mobile */}
+      <div className="pointer-events-none absolute inset-0 z-10 hidden lg:block">
+        {floatingElements.map((element) => (
+          <FloatingElement key={element.id} element={element} />
+        ))}
       </div>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl sm:text-center">
-          <p className="text-pretty text-2xl font-semibold tracking-tight text-gray-900 sm:text-balance sm:text-4xl lg:text-5xl">
+          <p className="font-display text-3xl tracking-tight text-pretty text-gray-900 sm:text-4xl sm:text-balance lg:text-5xl">
             Complete insurance compliance automation
           </p>
           <p className="mt-4 text-base text-gray-600 sm:text-lg/8">
@@ -199,7 +372,7 @@ export function Features() {
           </p>
         </div>
       </div>
-        <div className="relative overflow-hidden pt-8 sm:pt-16">
+      <div className="relative overflow-hidden pt-8 sm:pt-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-[-8%] overflow-hidden rounded-xl shadow-2xl ring-1 ring-gray-900/10 sm:mb-[-12%]">
             <Image
@@ -224,19 +397,17 @@ export function Features() {
                 <div
                   className="flex h-10 w-10 items-center justify-center rounded-lg sm:h-12 sm:w-12"
                   style={{
-                    backgroundColor: feature.icon.props.className.includes('bg-indigo-600')
-                      ? '#4f46e5'
-                      : feature.icon.props.className.includes('bg-blue-600')
-                        ? '#2563eb'
-                        : feature.icon.props.className.includes('bg-orange-600')
-                          ? '#ea580c'
-                          : feature.icon.props.className.includes('bg-purple-600')
-                            ? '#9333ea'
-                            : feature.icon.props.className.includes('bg-green-600')
-                              ? '#16a34a'
-                              : feature.icon.props.className.includes('bg-teal-600')
-                                ? '#0d9488'
-                                : '#4f46e5',
+                    backgroundColor: feature.icon.props.className.includes('bg-blue-600')
+                      ? '#2563eb'
+                      : feature.icon.props.className.includes('bg-orange-600')
+                        ? '#ea580c'
+                        : feature.icon.props.className.includes('bg-sky-600')
+                          ? '#0284c7'
+                          : feature.icon.props.className.includes('bg-green-600')
+                            ? '#16a34a'
+                            : feature.icon.props.className.includes('bg-teal-600')
+                              ? '#0d9488'
+                              : '#2563eb',
                   }}
                 >
                   {React.cloneElement(feature.icon, {
