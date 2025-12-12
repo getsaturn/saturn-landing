@@ -14,17 +14,17 @@
   "dependencies": {
     "@headlessui/react": "^2.2.9",
     "@heroicons/react": "^2.2.0",
-    "@tailwindcss/postcss": "^4.1.17",
+    "@tailwindcss/postcss": "^4.1.18",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.26",
-    "lucide-react": "^0.556.0",
-    "next": "^16.0.8",
-    "react": "^19.2.1",
+    "lucide-react": "^0.560.0",
+    "next": "^16.0.10",
+    "react": "^19.2.3",
     "react-calendly": "^4.4.0",
-    "react-dom": "^19.2.1",
+    "react-dom": "^19.2.3",
     "tailwind-merge": "^3.4.0",
-    "tailwindcss": "^4.1.17",
+    "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
@@ -32,7 +32,7 @@
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.1",
-    "eslint-config-next": "^16.0.8",
+    "eslint-config-next": "^16.0.10",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "sharp": "^0.34.5"
